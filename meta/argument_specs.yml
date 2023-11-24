@@ -7,7 +7,7 @@ argument_specs:
     short_description: "Install and configure BareOS Console (bconsole) on your system."
     description: >
       Install and configure BareOS Console (bconsole) on your system.
-    author: Robert de Bock
+    author: Adfinis
     options:
       bareos_console_directors:
         type: "list"
