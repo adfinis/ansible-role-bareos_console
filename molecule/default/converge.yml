@@ -1,8 +1,8 @@
 ---
 - name: Converge
   hosts: all
-  become: yes
-  gather_facts: yes
+  become: true
+  gather_facts: true
 
   roles:
     - role: ansible-role-bareos_console
@@ -11,5 +11,13 @@
           address: localhost
           password: "MySuperSecretPassword"
           description: "Bareos Console credentials for local Director"
-          tls_enable: yes
-          tls_verify_peer: no
+          tls_enable: true
+          tls_verify_peer: false
+          dir_port: 1337
+          tls_ca_cert: "/home/data/testCA.pem"
+          tls_cert: "/home/data/test.pem"
+          tls_key: "/home/data/test.key"
+          tls_allowed_cns:
+            - "bareos.example.com"
+            - "bareos-webui.example.com"
+            - "bareos-console.example.com"
