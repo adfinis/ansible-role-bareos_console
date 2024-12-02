@@ -1,14 +1,60 @@
 ---
 
-# # bareos_dir_messages: Daemon
-
 argument_specs:
   main:
-    short_description: "Install and configure BareOS Console (bconsole) on your system."
+    short_description: "Install and configure Bareos Console (bconsole) on your system."
     description: >
-      Install and configure BareOS Console (bconsole) on your system.
+      Install and configure Bareos Console (bconsole) on your system.
     author: Adfinis
     options:
       bareos_console_directors:
         type: "list"
         description: "A list of directors to connect to."
+        elements: "dict"
+        required: true
+        options:
+          name:
+            type: "str"
+            required: true
+            description: >
+              The Director name used to identify the Director in the list of monitored daemons.
+              It is not required to be the same as the one defined in the Director’s configuration file.
+          address:
+            type: "str"
+          dir_port:
+            type: int
+            default: 9101
+          description:
+            type: "str"
+          address:
+            type: "str"
+          password:
+            type: "str"
+            required: true
+            description: "Will be stored as MD5 hash."
+          tls_enable:
+            type: "bool"
+            default: true
+            description: "Enable TLS support."
+          tls_verify_peer:
+            type: "bool"
+            default: false
+            description: >
+              If enabled, the CN of a certificate must match the Address or be in the “TLS Allowed CN” list.
+          tls_allowed_cns:
+            type: "list"
+            elements: "str"
+            description: >
+              CNs of the allowed peer certificates
+          tls_ca_cert:
+            type: "str"
+            description: >
+              Path of a PEM encoded TLS CA certificate(s) file.
+          tls_cert:
+            type: "str"
+            description: >
+              Path of a PEM encoded TLS certificate.
+          tls_key:
+            type: "str"
+            description: >
+              Path of a PEM encoded private key. It must correspond to the specified `tls_cert`.
