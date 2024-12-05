@@ -1,8 +1,4 @@
 ---
-#
-# Ansible managed
-#
-
 name: Ansible Molecule
 
 on:
