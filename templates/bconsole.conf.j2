@@ -3,22 +3,36 @@
 {% if bareos_console_directors is defined %}
 {% for director in bareos_console_directors %}
 Director {
-   Name = "{{ director.name }}"
+  Name = "{{ director.name }}"
 {% if director.description is defined %}
-   Description = "{{ director.description }}"
+  Description = "{{ director.description }}"
 {% endif %}
 {% if director.address is defined %}
-   Address = "{{ director.address }}"
+  Address = "{{ director.address }}"
 {% endif %}
+  Dir Port = {{ director.dir_port | default("9101") }}
 {% if director.password is defined %}
-   Password = "[md5]{{ director.password | md5 }}"
+  Password = "[md5]{{ director.password | md5 }}"
 {% endif %}
-{% if director.tls_enable is defined %}
-   TLS Enable = {{ director.tls_enable | ternary('Yes', 'No') }}
-{% endif %}
+  TLS Enable = {{ director.tls_enable | default(true) | ternary('Yes', 'No') }}
 {% if director.tls_verify_peer is defined %}
-   TLS Verify Peer = {{ director.tls_verify_peer | ternary('Yes', 'No') }}
+  TLS Verify Peer = {{ director.tls_verify_peer | ternary('Yes', 'No') }}
 {% endif %}
+{% if director.tls_ca_cert is defined %}
+  TLS Ca Certificate File = "{{ director.tls_ca_cert }}"
+{% endif %}
+{% if director.tls_cert is defined %}
+  TLS Certificate = "{{ director.tls_cert }}"
+{% endif %}
+{% if director.tls_key is defined %}
+  TLS Key = "{{ director.tls_key }}"
+{% endif %}
+{% if director.tls_allowed_cns is defined %}
+{% for cn in director.tls_allowed_cns %}
+  TLS Allowed CN = "{{ cn }}"
+{% endfor %}
+{% endif %}
+
 }
 {% endfor %}
 {% endif %}
