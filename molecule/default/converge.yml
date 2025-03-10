@@ -21,3 +21,10 @@
             - "bareos.example.com"
             - "bareos-webui.example.com"
             - "bareos-console.example.com"
+          named_console: MyTestConsole
+        - name: secondary-bareos-dir
+          address: localhost
+          password: "MySuperSecretSecondPassword"
+          description: "Secondary Bareos Console for local Director"
+          tls_enable: false
+          named_console: MyNonTLSConsole

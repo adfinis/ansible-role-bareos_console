@@ -12,27 +12,33 @@ Director {
 {% endif %}
   Dir Port = {{ director.dir_port | default("9101") }}
 {% if director.password is defined %}
-  Password = "[md5]{{ director.password | md5 }}"
+  Password = "{{ director.password }}"
 {% endif %}
   TLS Enable = {{ director.tls_enable | default(true) | ternary('Yes', 'No') }}
 {% if director.tls_verify_peer is defined %}
   TLS Verify Peer = {{ director.tls_verify_peer | ternary('Yes', 'No') }}
 {% endif %}
-{% if director.tls_ca_cert is defined %}
-  TLS Ca Certificate File = "{{ director.tls_ca_cert }}"
-{% endif %}
-{% if director.tls_cert is defined %}
-  TLS Certificate = "{{ director.tls_cert }}"
-{% endif %}
-{% if director.tls_key is defined %}
-  TLS Key = "{{ director.tls_key }}"
-{% endif %}
 {% if director.tls_allowed_cns is defined %}
 {% for cn in director.tls_allowed_cns %}
-  TLS Allowed CN = "{{ cn }}"
+  TLS Allowed CN = {{ cn }}
 {% endfor %}
 {% endif %}
-
+{% if director.tls_ca_cert is defined %}
+  TLS Ca Certificate File = {{ director.tls_ca_cert }}
+{% endif %}
+{% if director.tls_cert is defined %}
+  TLS Certificate = {{ director.tls_cert }}
+{% endif %}
+{% if director.tls_key is defined %}
+  TLS Key = {{ director.tls_key }}
+{% endif %}
 }
+{% if director.named_console is defined | default(false) %}
+Console {
+  Name = "{{ director.named_console }}"
+  Password = "{{ director.password }}"
+  Director = "{{ director.name }}"
+}
+{% endif %}
 {% endfor %}
 {% endif %}

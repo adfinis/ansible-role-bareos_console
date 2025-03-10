@@ -56,3 +56,8 @@ argument_specs:
             type: "str"
             description: >
               Path of a PEM encoded private key. It must correspond to the specified `tls_cert`.
+          named_console:
+            type: "str"
+            description: >
+              Required to allow multiple consoles, according to
+              https://docs.bareos.org/Configuration/Console.html#using-named-consoles
